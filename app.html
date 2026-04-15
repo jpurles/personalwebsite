@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fishing Log</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #e6f2ff;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .form {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #0077cc;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #005fa3;
+    }
+
+    .log {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🎣 Fishing Log</h1>
+
+    <div class="form">
+        <label>Date</label>
+        <input type="date" id="date">
+
+        <label>Number of Fish Caught</label>
+        <input type="number" id="fishCount">
+
+        <label>Time of Day</label>
+        <select id="timeOfDay">
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+        </select>
+
+        <label>Start Time</label>
+        <input type="time" id="startTime">
+
+        <label>End Time</label>
+        <input type="time" id="endTime">
+
+        <label>Flies Used</label>
+        <input type="text" id="flies">
+
+        <label>Fish Type</label>
+        <input type="text" id="fishType">
+
+        <button onclick="addLog()">Add Log</button>
+    </div>
+
+    <div id="logs"></div>
+</div>
+
+<script>
+    let logs = JSON.parse(localStorage.getItem("fishingLogs")) || [];
+
+    function saveLogs() {
+        localStorage.setItem("fishingLogs", JSON.stringify(logs));
+    }
+
+    function displayLogs() {
+        const logContainer = document.getElementById("logs");
+        logContainer.innerHTML = "";
+
+        logs.forEach((log, index) => {
+            const div = document.createElement("div");
+            div.className = "log";
+
+            div.innerHTML = `
+                <strong>Date:</strong> ${log.date}<br>
+                <strong>Fish Caught:</strong> ${log.fishCount}<br>
+                <strong>Time of Day:</strong> ${log.timeOfDay}<br>
+                <strong>From:</strong> ${log.startTime} - ${log.endTime}<br>
+                <strong>Flies:</strong> ${log.flies}<br>
+                <strong>Fish Type:</strong> ${log.fishType}<br><br>
+                <button onclick="deleteLog(${index})">Delete</button>
+            `;
+
+            logContainer.appendChild(div);
+        });
+    }
+
+    function addLog() {
+        const log = {
+            date: document.getElementById("date").value,
+            fishCount: document.getElementById("fishCount").value,
+            timeOfDay: document.getElementById("timeOfDay").value,
+            startTime: document.getElementById("startTime").value,
+            endTime: document.getElementById("endTime").value,
+            flies: document.getElementById("flies").value,
+            fishType: document.getElementById("fishType").value
+        };
+
+        if (!log.date) {
+            alert("Add a date.");
+            return;
+        }
+
+        logs.push(log);
+        saveLogs();
+        displayLogs();
+
+        document.querySelectorAll("input").forEach(i => i.value = "");
+    }
+
+    function deleteLog(index) {
+        logs.splice(index, 1);
+        saveLogs();
+        displayLogs();
+    }
+
+    displayLogs();
+</script>
+
+</body>
+</html>

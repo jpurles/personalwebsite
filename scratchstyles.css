@@ -1,0 +1,62 @@
+/* General page styling */
+body {
+    background-color: #e6f2f0; /* custom background */
+    font-family: Arial, Helvetica, sans-serif; /* font family */
+    color: #2c3e50; /* font color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation bar */
+.nav {
+    background-color: #2e8b57;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* Hero section */
+.hero {
+    text-align: center;
+    padding: 20px;
+}
+
+.hero img {
+    width: 80%;
+    max-width: 700px;
+    border-radius: 12px;
+}
+
+/* Content section */
+.content {
+    padding: 25px;
+}
+
+.content h2 {
+    color: #1b5e20;
+}
+
+/* Video section */
+.video {
+    text-align: center;
+    padding: 30px;
+    background-color: #d0ebe6;
+}
+
+/* Footer */
+.footer {
+    background-color: #2e8b57;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
